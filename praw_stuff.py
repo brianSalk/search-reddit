@@ -19,10 +19,10 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_s
         title = submission.title
         selftext = submission.selftext
         if squeeze_spaces:
-            title = text.replace('\n', ' ')
-            title = ' '.join(text.split())
-            selftext = text.replace('\n', ' ')
-            selftext = ' '.join(text.split())
+            title = title.replace('\n', ' ')
+            title = ' '.join(title.split())
+            selftext = selftext.replace('\n', ' ')
+            selftext = ' '.join(selftext.split())
         if ignore_case:
             title = title.lower()
             selftext = selftext.lower()
@@ -42,4 +42,6 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_s
                 print('found string in comment: ', comment.submission.url)
 
 if __name__ == "__main__":
-    find_string_in_subreddit('Trump', 'music')
+    subreddit = input('enter subreddit name:')
+    string = input('enter search string:')
+    find_string_in_subreddit(string, subreddit)
