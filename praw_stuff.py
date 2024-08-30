@@ -34,8 +34,8 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_s
         for comment in comment_forest:
             comment_body = comment.body
             if squeeze_spaces:
-                comment_body = text.replace('\n', ' ')
-                comment_body = ' '.join(text.split())
+                comment_body = comment_body.replace('\n', ' ')
+                comment_body = ' '.join(comment_body.split())
             if ignore_case:
                 comment_body = comment_body.lower()
             if string in comment.body:
