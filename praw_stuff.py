@@ -21,9 +21,13 @@ def get_bad_subreddits(subreddits):
     return nonexistant
 
 
+def squeeze_spaces(s):
+    s = s.replace('\n', ' ')
+    s = ' '.join(s.split())
+    return s
 
 
-def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_spaces=True):
+def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_word=False, use_regex=False, include_comments=True):
     
     bad_subs = get_bad_subreddits([subreddit_name]) 
     print('BAD SUBS _______________ ', bad_subs)
@@ -37,11 +41,9 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_s
         url = submission.url 
         title = submission.title
         selftext = submission.selftext
-        if squeeze_spaces:
-            title = title.replace('\n', ' ')
-            title = ' '.join(title.split())
-            selftext = selftext.replace('\n', ' ')
-            selftext = ' '.join(selftext.split())
+
+        title = squeeze_spaces(title)
+        selftext = squeeze_spaces(selftext)
         if ignore_case:
             title = title.lower()
             selftext = selftext.lower()
@@ -55,9 +57,7 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_s
         for comment in submission.comments.list():
             print('comment')
             comment_body = comment.body
-            if squeeze_spaces:
-                comment_body = comment_body.replace('\n', ' ')
-                comment_body = ' '.join(comment_body.split())
+            comment_body = squeeze_spaces(comment_body)
             if ignore_case:
                 comment_body = comment_body.lower()
             if string in comment_body:
