@@ -13,8 +13,9 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_s
     
     # get each submission within the subreddit
     for submission in reddit.subreddit(subreddit_name).new(limit=None):
-        print('submission')
-
+        found_in_post = False
+        found_in_comments_count = 0
+        url = submission.url 
         title = submission.title
         selftext = submission.selftext
         if squeeze_spaces:
@@ -26,11 +27,11 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_s
             title = title.lower()
             selftext = selftext.lower()
             string = string.lower()
-        if string in title:
-            print('found string in title', submission.url)
-        if string in submission.selftext:
-            print('found string in self-text', submission.url)
+        print('submission: ', title)
+        if string in title or string in selftext:
+            found_in_post = True
         comment_forest = None
+        # SEARCH COMMENTS
         submission.comments.replace_more(limit=None)
         for comment in submission.comments.list():
             print('comment')
@@ -41,7 +42,11 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_s
             if ignore_case:
                 comment_body = comment_body.lower()
             if string in comment_body:
-                print('found string in comment: ', comment.submission.url)
+                found_in_comments_count += 1
+        if found_in_post:
+            print(f' -------------------- Found {string} in {title}', url)
+        if found_in_comments_count:
+            print(f' -------------------- Found in {found_in_comments_count} comments', url)
 
 if __name__ == "__main__":
     subreddit = input('enter subreddit name:')
