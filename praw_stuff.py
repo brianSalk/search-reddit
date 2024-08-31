@@ -9,8 +9,27 @@ reddit = praw.Reddit(
         username = os.getenv('REDDIT_USER_NAME'),
         password = os.getenv('REDDIT_PASSWORD')
         )
+
+def get_bad_subreddits(subreddits):
+    nonexistant = []
+    for subreddit in subreddits:
+        try:
+            reddit.subreddits.search_by_name(subreddit, exact=True)
+        except Exception as e:
+            nonexistant.append(subreddit)
+
+    return nonexistant
+
+
+
+
 def find_string_in_subreddit(string, subreddit_name, ignore_case=True, squeeze_spaces=True):
     
+    bad_subs = get_bad_subreddits([subreddit_name]) 
+    print('BAD SUBS _______________ ', bad_subs)
+    if bad_subs:
+        print(bad_subs)
+        return
     # get each submission within the subreddit
     for submission in reddit.subreddit(subreddit_name).new(limit=None):
         found_in_post = False
