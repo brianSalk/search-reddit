@@ -4,11 +4,11 @@ import os
 import streamlit as st
 
 reddit = praw.Reddit(
-        client_id = st.secrets('CID'),
-        client_secret = st.secrets('SECRET'),
+        client_id = st.secrets['CID'],
+        client_secret = st.secrets['SECRET'],
         user_agent = 'Myyyy reddit scraper for a string of text',
-        username = st.secrets('REDDIT_USER_NAME'),
-        password = st.secrets('REDDIT_PASSWORD')
+        username = st.secrets['REDDIT_USER_NAME'],
+        password = st.secrets['REDDIT_PASSWORD']
         )
 
 def get_bad_subreddits(subreddits):
