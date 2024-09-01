@@ -1,0 +1,2 @@
+fix get_bad_subreddits function, it is not working
+show spinner or other moving indicator that app is scraping
