@@ -5,7 +5,7 @@ if __name__ == '__main__':
     with st.sidebar:
         st.subheader('App created by Brian Salkas')
         st.write('Got any ideas to improve this app?  Open an issue [here](%s)' % 'https://github.com/brianSalk/search-reddit/issues')
-        st.write('If you are a programmer, send me a pull request [here](%s)' % https://github.com/brianSalk/search-reddit/pulls')
+        st.write('If you are a programmer, send me a pull request [here](%s)' % 'https://github.com/brianSalk/search-reddit/pulls')
     st.title('Search Reddit')
     with st.form('form'):
         subreddits =    st.text_input('subreddits').split()
