@@ -11,10 +11,10 @@ if __name__ == '__main__':
         subreddits =    st.text_input('subreddits').split()
         search_string = st.text_input('word or phrase to search')
 
-        is_case_sensitive = st.checkbox('case sensitive search')
+        is_case_sensitive = st.checkbox('make search case sensitive search')
         is_whole_word = st.checkbox('search as whole word', help="Check this box to avoid matching for parts of words \nIf you are searching 'ed' but do not want to show matches for 'helped' or 'education'")
-        is_regex = st.checkbox('use extended regex')
-        include_comments = st.checkbox('search in comments', value=True)
+        is_regex = st.checkbox('use python regex (programmers only)')
+        include_comments = st.checkbox('search for word or phrase in submission comments', value=True)
         submitted = st.form_submit_button('Search reddit')
 
         if submitted:
