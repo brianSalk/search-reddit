@@ -10,7 +10,6 @@ if __name__ == '__main__':
     is_whole_word = st.checkbox('search as whole word')
     is_regex = st.checkbox('use extended regex')
     include_comments = st.checkbox('search in comments', value=True)
-    st.write(include_comments)
 
 
     if st.button('search subreddit') or search_string:

@@ -1,3 +1,4 @@
+import re
 import praw
 import os
 import streamlit as st
@@ -26,6 +27,9 @@ def squeeze_spaces(s):
     s = ' '.join(s.split())
     return s
 
+def compile_word_re(s, ):
+    return re.compile(fr'\b{s}\b')
+
 
 def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_word=False, use_regex=False, include_comments=True):
     # get each submission within the subreddit
@@ -36,7 +40,11 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_wor
             url = submission.url 
             title = submission.title
             selftext = submission.selftext
-
+            regex = ''
+            if whole_word:
+                regex = compile_word_re(string)
+            elif use_regex:
+                regex = re.compile(string)
             title = squeeze_spaces(title)
             selftext = squeeze_spaces(selftext)
             if ignore_case:
@@ -44,8 +52,17 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_wor
                 selftext = selftext.lower()
                 string = string.lower()
             print('submission: ', title)
-            if string in title or string in selftext:
-                found_in_post = True
+            # check if string is in title or submission selftext
+            if whole_word:
+                if regex.search(title) or regex.search(selftext):
+                    found_in_post = True
+            elif use_regex:
+                if regex.search(title) or regex.search(selftext):
+                    found_in_post = True
+            else:
+                if string in title or string in selftext:
+                    found_in_post = True
+
             comment_forest = None
             # SEARCH COMMENTS
             if include_comments:
@@ -57,8 +74,12 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_wor
                     comment_body = squeeze_spaces(comment_body)
                     if ignore_case:
                         comment_body = comment_body.lower()
-                    if string in comment_body:
-                        found_in_comments_count += 1
+                    if use_regex or whole_word:
+                        if regex.search(comment_body):
+                            found_in_comments_count += 1
+                    else:
+                        if string in comment_body:
+                            found_in_comments_count += 1
             comment = ''
             if found_in_comments_count == 1:
                 comment = f'found in {found_in_comments_count} comment'
