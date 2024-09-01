@@ -2,7 +2,7 @@ import streamlit as st
 import praw_stuff
 
 if __name__ == '__main__':
-    with st.sidebar():
+    with st.sidebar:
         st.subheader('App created by Brian Salkas')
     st.title('Search Reddit')
     with st.form('form'):
