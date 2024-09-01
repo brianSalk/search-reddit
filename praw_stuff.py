@@ -3,7 +3,6 @@ import praw
 import os
 import streamlit as st
 
-print(os.getenv('CID'))
 reddit = praw.Reddit(
         client_id = os.getenv('CID'),
         client_secret = os.getenv('SECRET'),
