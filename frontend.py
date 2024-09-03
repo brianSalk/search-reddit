@@ -1,6 +1,20 @@
 import streamlit as st
 import praw_stuff
 
+def clean_subreddits(subreddits):
+    cleaned = []
+    for sub in subreddits:
+        if ',' in sub:
+            sub = sub.replace(',', '')
+            sub = sub.strip()
+        if sub.startswith('r/') or sub.startswith('R/'):
+            sub = sub[2:]
+        if len(sub) > 0:
+            cleaned.append(sub.lower())
+    return cleaned
+
+
+
 if __name__ == '__main__':
     with st.sidebar:
         st.subheader('App created by Brian Salkas')
@@ -24,10 +38,11 @@ if __name__ == '__main__':
                     step=1,
                     )
     with st.form('form'):
-        subreddits =    st.text_input('subreddits').split()
+        subreddits =    st.text_input('space-seperated list of subreddits', help='Example: programminghumor vegan jokes').split()
         search_string = st.text_input('word or phrase to search')
         
-
+        # remove invalid characters and r/ prefix
+        subreddits = clean_subreddits(subreddits)
         
 
         is_case_sensitive = st.checkbox('make search case sensitive search')
