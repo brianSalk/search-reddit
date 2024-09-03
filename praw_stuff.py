@@ -94,7 +94,7 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_wor
             if found_in_post or found_in_comments_count > 1:
                 st.markdown(f'[{title}](%s) {comment}' % url)
     except Exception as e:
-        st.write(':red[{subreddit_name} not found, check your spelling]')
+        st.write(f':red[{subreddit_name} not found, check your spelling]')
 
 
 def search_in_subreddits(string, subreddit_names, ignore_case=True, whole_word=False, use_regex=False, include_comments=True, limit=None, sort_by='new'):
