@@ -20,7 +20,7 @@ if __name__ == '__main__':
                     'max number of submissions to search per sub',
                     0,
                     None,
-                    value=99999999999,
+                    value=100,
                     step=1,
                     )
     with st.form('form'):
