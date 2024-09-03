@@ -30,10 +30,16 @@ def compile_word_re(s, ):
     return re.compile(fr'\b{s}\b')
 
 
-def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_word=False, use_regex=False, include_comments=True):
+def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_word=False, use_regex=False, include_comments=True, limit=None, sort_by='new'):
     # get each submission within the subreddit
     try:
-        for submission in reddit.subreddit(subreddit_name).new(limit=None):
+        if sort_by == 'new':
+            submissions = reddit.subreddit(subreddit_name).new(limit=limit)
+        elif sort_by == 'hot':
+            submissions = reddit.subreddit(subreddit_name).hot(limit=limit)
+        elif sort_by == 'controversial':
+            submissions = reddit.subreddit(subreddit_name).controversial(limit=limit)
+        for submission in submissions:
             found_in_post = False
             found_in_comments_count = 0
             url = submission.url 
@@ -91,7 +97,7 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_wor
         st.write(':red[{subreddit_name} not found, check your spelling]')
 
 
-def search_in_subreddits(string, subreddit_names, ignore_case=True, whole_word=False, use_regex=False, include_comments=True):
+def search_in_subreddits(string, subreddit_names, ignore_case=True, whole_word=False, use_regex=False, include_comments=True, limit=None, sort_by='new'):
     if not string or not subreddit_names:
         st.write(':red[search string and subreddits cannot be blank]')
         return
@@ -107,7 +113,9 @@ def search_in_subreddits(string, subreddit_names, ignore_case=True, whole_word=F
                     ignore_case=ignore_case, 
                     whole_word=whole_word, 
                     use_regex=use_regex, 
-                    include_comments=include_comments
+                    include_comments=include_comments,
+                    limit=limit,
+                    sort_by=sort_by
                     )    
         except Exception as e:
             st.write('red:[One or more subreddits not found]')

@@ -7,14 +7,34 @@ if __name__ == '__main__':
         st.write('Got any ideas to improve this app?  Open an issue [here](%s)' % 'https://github.com/brianSalk/search-reddit/issues')
         st.write('If you are a programmer, send me a pull request [here](%s)' % 'https://github.com/brianSalk/search-reddit/pulls')
     st.title('Search Reddit')
+
+    col1,col2 = st.columns(2)
+    with col2:
+            sort_by = st.radio(
+                    'sort submissions by:',
+                    ['new','hot', 'controversial'],
+                    index=0,
+                    horizontal=True
+                    )
+            limit = sub_limit = st.number_input(
+                    'max number of submissions to search per sub',
+                    0,
+                    None,
+                    value=99999999999,
+                    step=1,
+                    )
     with st.form('form'):
         subreddits =    st.text_input('subreddits').split()
         search_string = st.text_input('word or phrase to search')
+        
+
+        
 
         is_case_sensitive = st.checkbox('make search case sensitive search')
         is_whole_word = st.checkbox('search as whole word', help="Check this box to avoid matching for parts of words.  For example, if you are searching 'ed' but do not want to show matches for 'helped' or 'education'")
         is_regex = st.checkbox('use python regex (programmers only)')
         include_comments = st.checkbox('search for word or phrase in submission comments', value=True)
+        
         submitted = st.form_submit_button('Search reddit')
 
         if submitted:
@@ -25,5 +45,7 @@ if __name__ == '__main__':
                         ignore_case = not is_case_sensitive, 
                         whole_word=is_whole_word, 
                         use_regex=is_regex, 
-                        include_comments=include_comments 
+                        include_comments=include_comments,
+                        limit=limit,
+                        sort_by=sort_by
                         )
