@@ -20,7 +20,7 @@ if __name__ == '__main__':
         st.subheader('App created by Brian Salkas')
         st.write('Got any ideas to improve this app?  Open an issue [here](%s)' % 'https://github.com/brianSalk/search-reddit/issues')
         st.write('If you are a programmer, send me a pull request [here](%s)' % 'https://github.com/brianSalk/search-reddit/pulls')
-    st.title('Search Reddit')
+    st.title('reddit searcher'.title())
 
     col1,col2 = st.columns(2)
     with col2:
@@ -31,7 +31,7 @@ if __name__ == '__main__':
                     horizontal=True
                     )
             limit = sub_limit = st.number_input(
-                    'max number of submissions to search per sub',
+                    'max number of submissions to search per subreddit',
                     0,
                     None,
                     value=100,
@@ -47,8 +47,8 @@ if __name__ == '__main__':
 
         is_case_sensitive = st.checkbox('make search case sensitive search')
         is_whole_word = st.checkbox('search as whole word', help="Check this box to avoid matching for parts of words.  For example, if you are searching 'ed' but do not want to show matches for 'helped' or 'education'")
-        is_regex = st.checkbox('use python regex (programmers only)')
-        include_comments = st.checkbox('search for word or phrase in submission comments', value=True)
+        is_regex = st.checkbox('use python regex', help='if you do not know what a regex is, do not check this box')
+        include_comments = st.checkbox('search in submission comments', value=True)
         
         submitted = st.form_submit_button('Search reddit')
 
