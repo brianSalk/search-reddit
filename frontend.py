@@ -38,8 +38,8 @@ if __name__ == '__main__':
                     step=1,
                     )
     with st.form('form'):
-        subreddits =    st.text_input('space-seperated list of subreddits', help='Example: programminghumor vegan jokes').split()
-        search_string = st.text_input('word or phrase to search')
+        subreddits =    st.text_input('space-seperated list of subreddits', placeholder='Enter subreddits here: Ex. programminghumor vegan jokes').split()
+        search_string = st.text_input('word or phrase to search', placeholder='Enter word to search here')
         
         # remove invalid characters and r/ prefix
         subreddits = clean_subreddits(subreddits)
