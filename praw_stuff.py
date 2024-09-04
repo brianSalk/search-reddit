@@ -93,7 +93,9 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_wor
                 comment = f'found in {found_in_comments_count} comments'
 
             if found_in_post or found_in_comments_count > 1:
-                st.markdown(f'[{title}](%s) {comment}' % url)
+                #st.page_link(page='https://'+url, label=title)
+                #st.write(comment)
+                st.markdown(f'[{title}](%s) {comment}' % ('https://' + url))
     except Exception as e:
         st.write(f':red[{subreddit_name} not found, check your spelling]')
 
