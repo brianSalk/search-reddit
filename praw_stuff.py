@@ -42,7 +42,8 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_wor
         for submission in submissions:
             found_in_post = False
             found_in_comments_count = 0
-            url = submission.url 
+            url = 'www.reddit.com' + submission.permalink
+            print('---------------------------',url)
             title = submission.title
             selftext = submission.selftext
             regex = ''

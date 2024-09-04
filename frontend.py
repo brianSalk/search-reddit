@@ -1,6 +1,22 @@
 import streamlit as st
 import praw_stuff
 
+st.markdown(
+    """
+    <style>
+    @font-face {
+        font-family: 'CustomFont';
+        src: url('fonts/custom_font.otf') format('opentype');
+    }
+    html, body, [class*="css"]  {
+        font-family: 'CustomFont';
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 def clean_subreddits(subreddits):
     cleaned = []
     for sub in subreddits:
@@ -20,7 +36,8 @@ if __name__ == '__main__':
         st.subheader('App created by Brian Salkas')
         st.write('Got any ideas to improve this app?  Open an issue [here](%s)' % 'https://github.com/brianSalk/search-reddit/issues')
         st.write('If you are a programmer, send me a pull request [here](%s)' % 'https://github.com/brianSalk/search-reddit/pulls')
-    st.title('reddit searcher'.title())
+    title_text = 'reddit searcher'.title()
+    st.markdown('<h1 style="color: #FF4500;">' + title_text + '</h1>',unsafe_allow_html=True)
 
     col1,col2 = st.columns(2)
     with col2:
