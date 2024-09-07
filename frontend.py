@@ -1,6 +1,8 @@
 import streamlit as st
 import praw_stuff
 
+if 'redditor' not in st.session_state:
+    st.session_state['redditor'] = False
 st.markdown(
     """
     <style>
@@ -40,6 +42,12 @@ if __name__ == '__main__':
     st.markdown('<h1 style="color: #FF4500;">' + title_text + '</h1>',unsafe_allow_html=True)
 
     col1,col2 = st.columns(2)
+    redditor = None
+    with col1:
+        st.session_state['redditor'] = st.checkbox('search by author')
+        redditor = ''
+        if st.session_state['redditor']:
+            redditor = st.text_input('', placeholder='reddit handle', label_visibility = 'collapsed')
     with col2:
             sort_by = st.radio(
                     'sort submissions by:',
@@ -79,5 +87,7 @@ if __name__ == '__main__':
                         use_regex=is_regex, 
                         include_comments=include_comments,
                         limit=limit,
-                        sort_by=sort_by
+                        sort_by=sort_by,
+                        redditor=redditor
+
                         )

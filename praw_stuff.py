@@ -30,7 +30,7 @@ def compile_word_re(s, ):
     return re.compile(fr'\b{s}\b')
 
 
-def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_word=False, use_regex=False, include_comments=True, limit=None, sort_by='new'):
+def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_word=False, use_regex=False, include_comments=True, limit=None, sort_by='new', redditor=None):
     # get each submission within the subreddit
     try:
         if sort_by == 'new':
@@ -100,7 +100,7 @@ def find_string_in_subreddit(string, subreddit_name, ignore_case=True, whole_wor
         st.write(f':red[{subreddit_name} not found, check your spelling]')
 
 
-def search_in_subreddits(string, subreddit_names, ignore_case=True, whole_word=False, use_regex=False, include_comments=True, limit=None, sort_by='new'):
+def search_in_subreddits(string, subreddit_names, ignore_case=True, whole_word=False, use_regex=False, include_comments=True, limit=None, sort_by='new', redditor=None):
     if not string or not subreddit_names:
         st.write(':red[search string and subreddits cannot be blank]')
         return
@@ -118,7 +118,8 @@ def search_in_subreddits(string, subreddit_names, ignore_case=True, whole_word=F
                     use_regex=use_regex, 
                     include_comments=include_comments,
                     limit=limit,
-                    sort_by=sort_by
+                    sort_by=sort_by,
+                    redditor=redditor
                     )    
         except Exception as e:
             st.write('red:[One or more subreddits not found]')
