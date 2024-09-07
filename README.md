@@ -10,5 +10,4 @@ Or maybe you are doing research on thresher sharks and want to find each occuran
 I greatly appreciate **any and all** contributions.  Submit a pull request or leave a note in the issues!  Here is a list of issues that the app currently has:  
 * There is no good way to stop a current query and start over again with different parameters
 * the code is messy.  Any help cleaning it, especially the giant 'find_string_in_subreddit' function would be great
-* The frontend is a bit buggy to use
-* As now, there is no way to limit the number of submissions searched (e.g. checkbox to say "submissions per subreddit")
+
